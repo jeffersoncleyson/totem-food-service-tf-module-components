@@ -6,11 +6,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "profile" {
-  description = "AWS Profile"
-  type    = string
-}
-
 variable "application_name" {
   description = "Application Name"
   type    = string

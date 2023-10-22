@@ -1,6 +1,5 @@
 provider "aws" {
   region  = var.region
-  profile = var.profile
 }
 
 terraform {
@@ -18,6 +17,12 @@ terraform {
       version = "~> 2.2.0"
     }
   }
+
+  backend "s3" {
+    bucket  = "totem-food-service-terraform-state"
+    key     = "totem-food-service-components"
+    region  = "us-east-1"
+  }
 }
 
 module "cognito" {
@@ -26,22 +31,22 @@ module "cognito" {
   environment      = var.environment
   owner_team       = var.owner_team
   ############################################### [Cognito] Variables
-  source                  = "../totem-food-service-tf-module-cognito"
-  user_pool_name          = "user-pool"
-  user_pool_domain        = "totem-food"
-  refresh_token_validity  = 90
-  refresh_token_unit      = "days"
-  access_token_validity   = 5
-  access_token_unit       = "minutes"
-  id_token_validity       = 5
-  id_token_unit           = "minutes"
-  client_name             = "cognito-client"
-  callback_urls           = ["https://example.com", "https://oauth.pstmn.io/v1/callback"]
+  source                 = "../totem-food-service-tf-module-cognito"
+  user_pool_name         = "user-pool"
+  user_pool_domain       = "totem-food"
+  refresh_token_validity = 90
+  refresh_token_unit     = "days"
+  access_token_validity  = 5
+  access_token_unit      = "minutes"
+  id_token_validity      = 5
+  id_token_unit          = "minutes"
+  client_name            = "cognito-client"
+  callback_urls          = ["https://example.com", "https://oauth.pstmn.io/v1/callback"]
   ############################################### [Cognito] Variables - Anonymous User
   anonymous_user_username = "anonymous"
   anonymous_user_password = "anonymous"
-  anonymous_user_cpf = "11111111111"
-  anonymous_user_email = "no-reply@email.com"
+  anonymous_user_cpf      = "11111111111"
+  anonymous_user_email    = "no-reply@email.com"
 }
 
 module "authorizer" {
