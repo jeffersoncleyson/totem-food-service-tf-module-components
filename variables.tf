@@ -20,3 +20,19 @@ variable "owner_team" {
   description = "Application Owner Team"
   type    = string
 }
+
+variable "db_username" {
+  description = "Database username"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Database password"
+  type        = string
+}
+
+variable "db_storage" {
+  description = "Database Storage"
+  type    = number
+  default = 20
+}

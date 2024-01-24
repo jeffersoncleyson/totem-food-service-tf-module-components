@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = var.region
+  region = var.region
 }
 
 terraform {
@@ -19,9 +19,9 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "totem-food-service-terraform-state"
-    key     = "totem-food-service-components"
-    region  = "us-east-1"
+    bucket = "totem-food-service-terraform-state"
+    key    = "totem-food-service-components"
+    region = "us-east-1"
   }
 }
 
@@ -122,5 +122,19 @@ module "api_gateway" {
   vpc_security_group_eks_ids = [module.eks.vpc_link]
   eks_private_subnet_ids     = [module.eks.private_subnet_one, module.eks.private_subnet_two]
 
+}
+
+module "rds" {
+  source = "../totem-food-service-tf-module-rds"
+
+  ############################################### [TAGs] Variables
+  application_name = var.application_name
+  environment      = var.environment
+  owner_team       = var.owner_team
+  ############################################### [RDS] Variables
+  db_username   = var.db_username
+  db_password   = var.db_password
+  db_storage    = var.db_storage
+  db_identifier = "totem-food-service"
 }
 

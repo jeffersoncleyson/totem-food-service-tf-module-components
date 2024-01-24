@@ -60,4 +60,13 @@ output "aws_apigatewayv2_vpc_link_eks_id" {
 }
 
 
+############################################### [RDS] Outputs
 
+output "security_group_id" {
+  value = module.rds.security_group_id
+}
+output "db_instance_endpoint" {
+  value = module.rds.db_instance_endpoint
+}
+
+###############################################
