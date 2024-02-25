@@ -49,6 +49,21 @@ module "cognito" {
   anonymous_user_email    = "no-reply@email.com"
 }
 
+module "sns-and-sqs" {
+  source = "../totem-food-service-tf-module-sns-and-sqs"
+
+  ############################################### [TAGs] Variables
+  application_name = var.application_name
+  environment      = var.environment
+  owner_team       = var.owner_team
+  ############################################### [SNS] Variables
+  payment_topic = "payment-topic"
+  email_topic = "email-topic"
+  payment_create_queue = "create-payment-queue"
+  payment_update_order_queue = "payment-update-order-queue"
+  email_queue = "email-queue"
+}
+
 module "authorizer" {
   source = "../totem-food-service-tf-module-authorizer"
 
